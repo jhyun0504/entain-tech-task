@@ -1,5 +1,12 @@
+import { Container } from "@mui/system";
+import NextToGo from "./components/NextToGo";
+
 function App() {
-  return <div className="App">Hello World</div>;
+  return (
+    <Container>
+      <NextToGo />
+    </Container>
+  );
 }
 
 export default App;
