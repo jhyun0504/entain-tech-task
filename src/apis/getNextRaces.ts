@@ -20,7 +20,7 @@ export interface NextRaceApiData {
   meetingName: string;
   raceNumber: number;
   catergoryId: string;
-  startTime: number;
+  startTimeInSeconds: number;
 }
 
 const getNextRaces = async (
@@ -38,11 +38,11 @@ const getNextRaces = async (
     meetingName: raceSummary.meeting_name,
     raceNumber: raceSummary.race_number,
     catergoryId: raceSummary.category_id,
-    startTime: raceSummary.advertised_start.seconds,
+    startTimeInSeconds: raceSummary.advertised_start.seconds,
   }));
 
   // Sort it to make sure start time is ascending
-  return nextRaces.sort((a, b) => a.startTime - b.startTime);
+  return nextRaces.sort((a, b) => a.startTimeInSeconds - b.startTimeInSeconds);
 };
 
 export default getNextRaces;
