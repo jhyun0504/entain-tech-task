@@ -1,21 +1,29 @@
 import styled from "@emotion/styled";
 import { Card, CardActionArea, CardContent, Typography } from "@mui/material";
 
+interface Props {
+  raceNumber: number;
+  meetingName: string;
+  secondsLeft: number;
+}
+
 const StyledCardActionArea = styled(CardActionArea)`
   display: flex;
   justify-content: space-between;
 `;
 
-const RaceCard = () => {
+const RaceCard = (props: Props) => {
+  const { raceNumber, meetingName, secondsLeft } = props;
+
   return (
     <Card variant="outlined">
       <StyledCardActionArea>
         <CardContent>
-          <Typography variant="h6">Race No. 3</Typography>
-          <Typography variant="h6">Hello</Typography>
+          <Typography variant="subtitle1">Race No. {raceNumber}</Typography>
+          <Typography variant="h5">{meetingName}</Typography>
         </CardContent>
         <CardContent>
-          <Typography variant="h5">100s</Typography>
+          <Typography variant="h5">{secondsLeft}s</Typography>
         </CardContent>
       </StyledCardActionArea>
     </Card>

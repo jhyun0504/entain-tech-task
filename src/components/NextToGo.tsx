@@ -23,7 +23,14 @@ const NextToGo = () => {
         {loading ? (
           <CircularProgress />
         ) : nextRaces ? (
-          nextRaces.map((raceData) => <RaceCard key={raceData.raceId} />)
+          nextRaces.map((raceData) => (
+            <RaceCard
+              raceNumber={raceData.raceNumber}
+              meetingName={raceData.meetingName}
+              secondsLeft={5}
+              key={raceData.raceId}
+            />
+          ))
         ) : (
           <Alert severity="error">{error}</Alert>
         )}
