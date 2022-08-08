@@ -33,17 +33,23 @@ const NextToGo = () => {
   const [category, setCategory] = useState<string | null>("");
 
   useEffect(() => {
+    // Set interval for start time countdown
     const intervalId = setInterval(() => {
+      setLoading(fetchLoading);
+
+      // save start time count down as a state
       let processedNextRaces =
         apiNextRaces?.map((raceData) => ({
           ...raceData,
           secondsLeft: getSecondsDiff(raceData.startTimeInSeconds),
         })) || [];
 
+      // Don't want any race that is 60s past the start time
       processedNextRaces = processedNextRaces.filter(
         (raceData) => raceData.secondsLeft > -61
       );
 
+      // Fetch more races if number of races in state is less than 5
       if (processedNextRaces.length < 5) fetch();
 
       setNextRaces(processedNextRaces);
@@ -68,9 +74,11 @@ const NextToGo = () => {
           <CircularProgress />
         ) : nextRaces ? (
           nextRaces
+            // Category filter
             .filter((raceData) =>
               category ? raceData.catergoryId === category : true
             )
+            // Only want to see 5 races at a time
             .slice(0, 5)
             .map((raceData) => (
               <RaceCard
