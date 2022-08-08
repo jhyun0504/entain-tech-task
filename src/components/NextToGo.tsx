@@ -1,5 +1,7 @@
 import styled from "@emotion/styled";
-import { Typography } from "@mui/material";
+import { Alert, CircularProgress, Typography } from "@mui/material";
+import getNextRaces from "../apis/getNextRaces";
+import useFetch from "../hooks/useFetch";
 import RaceCard from "./RaceCard";
 
 const CardContainer = styled.div`
@@ -9,6 +11,8 @@ const CardContainer = styled.div`
 `;
 
 const NextToGo = () => {
+  const { data: nextRaces, loading, error } = useFetch(getNextRaces);
+
   return (
     <div>
       <Typography variant="h4" gutterBottom>
@@ -16,7 +20,13 @@ const NextToGo = () => {
       </Typography>
 
       <CardContainer>
-        <RaceCard />
+        {loading ? (
+          <CircularProgress />
+        ) : nextRaces ? (
+          nextRaces.map((raceData) => <RaceCard key={raceData.raceId} />)
+        ) : (
+          <Alert severity="error">{error}</Alert>
+        )}
       </CardContainer>
     </div>
   );
